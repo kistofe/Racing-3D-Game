@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "PhysBody3D.h"
 #include "ModuleCamera3D.h"
+#include "ModulePlayer.h"
+#include "PhysVehicle3D.h"
+#include <math.h>
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -13,7 +16,6 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	Position = vec3(0.0f, 30.0f, 5.0f);
 	Reference = vec3(0.0f, 30.0f, 5.0f);
-	LookAt({ 0,30,0 });
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -156,4 +158,16 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
+}
+
+void ModuleCamera3D::SetCameraToPlayer()
+{
+	//Get current vehicle transform
+	btTransform vehicle_transform = App->player->vehicle->vehicle->getChassisWorldTransform();
+
+	//Get vehicle origin pos
+	btVector3 camera = vehicle_transform.getOrigin();
+
+https://stackoverflow.com/questions/16384571/how-to-properly-rotate-a-quaternion-along-all-axis
+https://www.gamedev.net/articles/programming/math-and-physics/a-simple-quaternion-based-camera-r1997/
 }
