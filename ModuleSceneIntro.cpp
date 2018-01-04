@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
+#include "ModulePlayer.h"
 #include "ModulePhysics3D.h"
 #include "PhysBody3D.h"
 
@@ -21,6 +22,12 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 	
+	Cube test2(10, 10, 10);
+	sensor = App->physics->AddBody(test2, 0.0f);
+	sensor->SetPos(0, 0, 20);
+	sensor->SetAsSensor();
+	sensor->collision_listeners.add(App->player);
+
 	Cube test(2, 4, 5);
 	test.SetPos(0, 5, 10);
 	test.axis = true;
@@ -51,7 +58,11 @@ update_status ModuleSceneIntro::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+void ModuleSceneIntro::OnCollision(PhysVehicle3D* body2, PhysBody3D* body1)
 {
+	if (body2 == App->player->vehicle && body1 == sensor)
+	{
+		laps_done++;
+	}
 }
 

@@ -3,6 +3,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "PhysVehicle3D.h"
 
 #define MAX_SNAKE 2
 
@@ -19,7 +20,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+	void OnCollision(PhysVehicle3D* body1, PhysBody3D* body2);
 
 public:
 	
@@ -42,5 +43,7 @@ public:
 	float best_lap_time = 0;
 	float current_time = 0;
 	
+	PhysBody3D* sensor;
+
 	p2List<Cube> map;
 };
