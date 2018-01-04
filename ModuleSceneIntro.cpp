@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
+#include "ModulePhysics3D.h"
 #include "PhysBody3D.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -20,6 +21,13 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 	
+	Cube test(2, 4, 5);
+	test.SetPos(0, 5, 10);
+	test.axis = true;
+
+	App->physics->AddBody(test, 0.0f);
+	map.add(test);
+
 	return ret;
 }
 
@@ -34,10 +42,12 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-	
+	p2List_item<Cube>* map_list_iterator = map.getFirst();
+	while (map_list_iterator)
+	{
+		map_list_iterator->data.Render();
+		map_list_iterator = map_list_iterator->next;
+	}
 	return UPDATE_CONTINUE;
 }
 

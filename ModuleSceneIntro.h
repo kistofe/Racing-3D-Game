@@ -34,4 +34,13 @@ public:
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
+
+	uint laps_done = 0;
+	uint laps_left = 3;
+	Timer lap_timer;
+	float last_lap_time = 0;
+	float best_lap_time = 0;
+	float current_time = 0;
+	
+	p2List<Cube> map;
 };

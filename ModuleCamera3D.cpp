@@ -171,7 +171,7 @@ void ModuleCamera3D::SetCameraToPlayer()
 
 	vec3 camera_pos = player_pos;
 	camera_pos.y += 12;
-	camera_pos.z -= 20;
+	camera_pos.z -= 25;
 	
 	Look(camera_pos, player_pos, false);
 }

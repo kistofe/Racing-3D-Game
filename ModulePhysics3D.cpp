@@ -67,11 +67,6 @@ bool ModulePhysics3D::Start()
 	}
 
 	
-	circuit.color = White;
-	circuit.size = { 100, 15, 100 };
-	circuit.wire = false;
-	App->physics->AddBody(circuit);
-	
 	
 	return true;
 }

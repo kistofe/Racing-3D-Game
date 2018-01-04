@@ -1,6 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
+#include "ModuleSceneIntro.h"
 #include "ModuleWindow.h"
+#include "PhysVehicle3D.h"
+
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -70,6 +73,17 @@ bool ModuleWindow::Init()
 	}
 
 	return ret;
+}
+
+update_status ModuleWindow::Update(float dt)
+{
+	char title[80];
+	sprintf_s(title, "-- LAPS: %d/%d -- Lap Time: %.1f -- Last Lap Time: %.1f -- Best Time: %.1f", App->scene_intro->laps_done, App->scene_intro->laps_left, 
+		App->scene_intro->current_time, App->scene_intro->last_lap_time, App->scene_intro->best_lap_time);
+
+	App->window->SetTitle(title);
+
+	return UPDATE_CONTINUE;
 }
 
 // Called before quitting
