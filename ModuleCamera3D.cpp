@@ -43,8 +43,7 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
-
-
+/*
 	vec3 newPos(0,0,0);
 	float speed = 3.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
@@ -99,10 +98,12 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position = Reference + Z * length(Position);
 	}
-
+*/
+	SetCameraToPlayer();
 	// Recalculate matrix -------------
-	CalculateViewMatrix();
-
+//	CalculateViewMatrix();
+	
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -162,12 +163,27 @@ void ModuleCamera3D::CalculateViewMatrix()
 
 void ModuleCamera3D::SetCameraToPlayer()
 {
-	//Get current vehicle transform
-	btTransform vehicle_transform = App->player->vehicle->vehicle->getChassisWorldTransform();
+	btTransform vehicle = App->player->vehicle->vehicle->getChassisWorldTransform();
+	btVector3 btplayer_pos = vehicle.getOrigin();
+	btVector3 btplayer_dir = vehicle.getBasis().getColumn(2);
+	LOG("%f, %f, %f", btplayer_dir.getX(), btplayer_dir.getY(), btplayer_dir.getZ());
+	vec3 player_pos = bt_to_vec(btplayer_pos);
 
-	//Get vehicle origin pos
-	btVector3 camera = vehicle_transform.getOrigin();
-
-https://stackoverflow.com/questions/16384571/how-to-properly-rotate-a-quaternion-along-all-axis
-https://www.gamedev.net/articles/programming/math-and-physics/a-simple-quaternion-based-camera-r1997/
+	vec3 camera_pos = player_pos;
+	camera_pos.y += 12;
+	camera_pos.z -= 20;
+	
+	Look(camera_pos, player_pos, false);
 }
+
+vec3 ModuleCamera3D::bt_to_vec(btVector3 vector)
+{
+	vec3 new_vector;
+	
+	new_vector.x = vector.getX();
+	new_vector.y = vector.getY();
+	new_vector.z = vector.getZ();
+	
+	return new_vector;
+}
+

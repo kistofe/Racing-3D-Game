@@ -3,6 +3,8 @@
 #include "Globals.h"
 #include "glmath.h"
 
+#include "Bullet/include/btBulletDynamicsCommon.h"
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -22,6 +24,7 @@ private:
 
 	void CalculateViewMatrix();
 	void SetCameraToPlayer();
+	vec3 bt_to_vec(btVector3 vector);
 
 public:
 	

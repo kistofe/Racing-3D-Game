@@ -36,7 +36,7 @@ bool ModulePlayer::Start()
 	float wheel_radius = 0.6f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
-
+	
 	// Don't change anything below this line ------------------
 
 	float half_width = car.chassis_size.x*0.5f;
@@ -99,7 +99,6 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 30, 10);
 	btTransform test;
-	vehicle.
 	return true;
 }
 
@@ -147,7 +146,6 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-
 	vehicle->Render();
 
 	char title[80];
