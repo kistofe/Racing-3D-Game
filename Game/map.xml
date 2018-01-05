@@ -1,0 +1,243 @@
+<!--Map creation file-->
+<map>
+  <plane>
+    <pos x ="0" y ="30" z="-125"/>
+    <size x="30" y="2" z="270"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "-12.5" y = "30" z= "12.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="true"/>
+  </plane>
+
+  <plane>
+    <pos x = "-7.5" y = "30" z= "12.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "-2.5" y = "30" z= "12.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="true"/>
+  </plane>
+
+  <plane>
+    <pos x = "2.5" y = "30" z= "12.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "7.5" y = "30" z= "12.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="true"/>
+  </plane>
+
+  <plane>
+    <pos x = "12.5" y = "30" z= "12.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "-12.5" y = "30" z= "17.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "-7.5" y = "30" z= "17.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="true"/>
+  </plane>
+
+  <plane>
+    <pos x = "-2.5" y = "30" z= "17.5"/>
+    <size x="5" y="2" z="5"/>
+   <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "2.5" y = "30" z= "17.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="true"/>
+  </plane>
+
+  <plane>
+    <pos x = "7.5" y = "30" z= "17.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="false"/>
+  </plane>
+
+
+  <plane>
+    <pos x = "12.5" y = "30" z= "17.5"/>
+    <size x="5" y="2" z="5"/>
+    <is_red value="true"/>
+  </plane>
+
+  <plane>
+    <pos x = "0" y = "30" z= "265"/>
+    <size x="30" y="2" z="490"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "80" y = "30" z= "-245"/>
+    <size x="130" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "160" y = "30" z= "-195"/>
+    <size x="30" y="2" z="130"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "240" y = "30" z= "-145"/>
+    <size x="130" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "290" y = "30" z= "-195"/>
+    <size x="30" y="2" z="130"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "340" y = "30" z= "-245"/>
+    <size x="130" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "390" y = "30" z= "-165"/>
+    <size x="30" y="2" z="160"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "450" y = "30" z= "-100"/>
+    <size x="120" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "520" y = "30" z= "-80"/>
+    <size x="30" y="2" z="70"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "490" y = "30" z= "-30"/>
+    <size x="90" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "460" y = "30" z= "70"/>
+    <size x="30" y="2" z="170"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "390" y = "30" z= "220"/>
+    <size x="70" y="2" z="130"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "490" y = "30" z= "185"/>
+    <size x="130" y="2" z="60"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "530" y = "30" z= "220"/>
+    <size x="70" y="2" z="130"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "460" y = "30" z= "305"/>
+    <size x="210" y="2" z="40"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "460" y = "30" z= "410"/>
+    <size x="30" y="2" z="170"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "440" y = "30" z= "520"/>
+    <size x="70" y="2" z="60"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "420" y = "30" z= "580"/>
+    <size x="30" y="2" z="70"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "275" y = "30" z= "630"/>
+    <size x="320" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "130" y = "30" z= "685"/>
+    <size x="30" y="2" z="80"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "225" y = "30" z= "710"/>
+    <size x="160" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "320" y = "30" z= "625"/>
+    <size x="30" y="2" z="200"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "265" y = "30" z= "540"/>
+    <size x="80" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "210" y = "30" z= "405"/>
+    <size x="30" y="2" z="300"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "165" y = "30" z= "240"/>
+    <size x="120" y="2" z="80"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "120" y = "30" z= "380"/>
+    <size x="30" y="2" z="200"/>
+    <is_red value="false"/>
+  </plane>
+
+  <plane>
+    <pos x = "75" y = "30" z= "495"/>
+    <size x="120" y="2" z="30"/>
+    <is_red value="false"/>
+  </plane>
+</map>

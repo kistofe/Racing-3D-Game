@@ -107,6 +107,9 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 			}
 		}
 	}
+	
+
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -138,7 +141,7 @@ update_status ModulePhysics3D::Update(float dt)
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
 		}
 	}
-	circuit.Render();
+	
 	return UPDATE_CONTINUE;
 }
 

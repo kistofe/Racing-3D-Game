@@ -21,6 +21,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysVehicle3D* body1, PhysBody3D* body2);
+	void LoadMap(pugi::xml_node& node);
 
 public:
 	
@@ -45,5 +46,8 @@ public:
 	
 	PhysBody3D* sensor;
 
-	p2List<Cube> map;
+	p2List<Cube> map_elems;
+
+	pugi::xml_document config_file;
+	pugi::xml_node config;
 };

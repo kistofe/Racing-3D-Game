@@ -52,7 +52,7 @@ private:
 	p2List<btDefaultMotionState*> motions;
 	p2List<btTypedConstraint*> constraints;
 	p2List<PhysVehicle3D*> vehicles;
-	Cube circuit;
+
 };
 
 class DebugDrawer : public btIDebugDraw

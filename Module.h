@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PugiXml\src\pugixml.hpp"
+
 class Application;
 struct PhysBody3D;
 
