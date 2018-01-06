@@ -20,6 +20,7 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 	void LoadMap(pugi::xml_node& node);
+	void UpdateVisualWorld();
 
 public:
 	Cube goal_sensor_shape;
@@ -30,6 +31,12 @@ public:
 
 	Cube anticheat;
 	PhysBody3D* anticheat_s;
+
+	Sphere constraint_axis;
+	PhysBody3D* constraint_axis_p;
+
+	Cube constraint_rot;
+	PhysBody3D* constraint_rot_p;
 
 	uint laps_done = 0;
 	uint total_laps = 3;

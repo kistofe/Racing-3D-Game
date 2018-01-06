@@ -61,6 +61,16 @@ bool ModuleSceneIntro::Start()
 	goal_sensor->collision_listeners.add(this);
 	goal_sensor->name = "Goal";
 
+	constraint_axis.radius = 2;
+	constraint_axis.SetPos(0, 33, -50);
+	constraint_axis_p = App->physics->AddBody(constraint_axis, 0.0f);
+
+	constraint_rot.size = vec3(16, 2, 2);
+	constraint_rot.SetPos(0, 33, -50);
+	constraint_rot_p = App->physics->AddBody(constraint_rot, 0.5f);
+
+	App->physics->AddConstraintHinge(*constraint_axis_p, *constraint_rot_p, { 0, 0, 0 }, { 0,0,0 }, { 0, 1, 0 }, { 0, 1, 0 }, true);
+
 	lap_timer.Start();
 	return ret;
 }
@@ -83,7 +93,12 @@ update_status ModuleSceneIntro::Update(float dt)
 		map_list_iterator = map_list_iterator->next;
 	}
 
+	constraint_axis.Render();
+	constraint_rot.Render();
+
 	current_time_sec = lap_timer.Read() / 1000;
+
+	UpdateVisualWorld();
 	return UPDATE_CONTINUE;
 }
 
@@ -106,4 +121,10 @@ void ModuleSceneIntro::LoadMap(pugi::xml_node& map)
 		plane.color = Red;
 	App->physics->AddBody(plane, 0.0f);
 	map_elems.add(plane);
+}
+
+void ModuleSceneIntro::UpdateVisualWorld()
+{
+	float matrix[16];
+	constraint_rot_p->GetTransform(&constraint_rot.transform);
 }
