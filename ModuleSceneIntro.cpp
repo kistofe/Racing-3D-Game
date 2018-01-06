@@ -3,6 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
+#include "PhysVehicle3D.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -44,6 +45,20 @@ bool ModuleSceneIntro::Start()
 	sensor = App->physics->AddBody(s, 0.0f);
 	sensor->SetAsSensor(true);
 	sensor->collision_listeners.add(this);
+	map_elems.add(s);
+
+	death.size = vec3(1500, 0.05f, 1800);
+	death.SetPos(400, 5, 280);
+
+	death_s = App->physics->AddBody(death, 0.0f);
+	death_s->SetAsSensor(true);
+	death_s->collision_listeners.add(this);
+	map_elems.add(death);
+
+	anticheat.size = vec3(0.05f, 6, 30);
+	anticheat.SetPos(15, 35, -244);
+
+	map_elems.add(anticheat);
 
 	lap_timer.Start();
 	return ret;
@@ -73,7 +88,11 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	LOG("Hit!");
+	if (body1 == death_s)
+	{
+		App->player->vehicle->SetTransform(App->player->start_location);
+
+	}
 }
 
 void ModuleSceneIntro::LoadMap(pugi::xml_node& map)

@@ -25,6 +25,12 @@ public:
 	Cube s;
 	PhysBody3D* sensor;
 
+	Cube death;
+	PhysBody3D* death_s;
+
+	Cube anticheat;
+	PhysBody3D* anticheat_s;
+
 	uint laps_done = 0;
 	uint laps_left = 3;
 	Timer lap_timer;
