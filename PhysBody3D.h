@@ -2,6 +2,7 @@
 #define __PhysBody3D_H__
 
 #include "p2List.h"
+#include "p2SString.h"
 
 class btRigidBody;
 class Module;
@@ -27,6 +28,7 @@ private:
 
 public:
 	p2List<Module*> collision_listeners;
+	p2SString name;
 };
 
 #endif // __PhysBody3D_H__
