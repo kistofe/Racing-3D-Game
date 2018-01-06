@@ -39,14 +39,6 @@ bool ModuleSceneIntro::Start()
 		temp = temp.next_sibling("plane");
 	}
 
-	s.size = vec3(5, 3, 1);
-	s.SetPos(0, 35, -50);
-
-	sensor = App->physics->AddBody(s, 0.0f);
-	sensor->SetAsSensor(true);
-	sensor->collision_listeners.add(this);
-	map_elems.add(s);
-
 	death.size = vec3(1500, 0.05f, 1800);
 	death.SetPos(400, 5, 280);
 
@@ -59,6 +51,15 @@ bool ModuleSceneIntro::Start()
 	anticheat.SetPos(15, 35, -244);
 
 	map_elems.add(anticheat);
+
+	goal_sensor_shape.size = vec3(30, 20, 10);
+	goal_sensor_shape.SetPos(0, 35, 15);
+	
+	
+	goal_sensor = App->physics->AddBody(goal_sensor_shape, 0.0f);
+	goal_sensor->SetAsSensor(true);
+	goal_sensor->collision_listeners.add(this);
+	goal_sensor->name = "Goal";
 
 	lap_timer.Start();
 	return ret;
@@ -91,8 +92,10 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	if (body1 == death_s)
 	{
 		App->player->vehicle->SetTransform(App->player->start_location);
-
 	}
+
+	if (body1 == goal_sensor)
+		laps_done++, colliding = true;
 }
 
 void ModuleSceneIntro::LoadMap(pugi::xml_node& map)

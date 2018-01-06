@@ -22,8 +22,8 @@ public:
 	void LoadMap(pugi::xml_node& node);
 
 public:
-	Cube s;
-	PhysBody3D* sensor;
+	Cube goal_sensor_shape;
+	PhysBody3D* goal_sensor;
 
 	Cube death;
 	PhysBody3D* death_s;
@@ -32,11 +32,12 @@ public:
 	PhysBody3D* anticheat_s;
 
 	uint laps_done = 0;
-	uint laps_left = 3;
+	uint total_laps = 3;
 	Timer lap_timer;
 	float last_lap_time = 0;
 	float best_lap_time = 0;
 	uint current_time_sec = 0;
+	bool colliding = false;
 
 	p2List<Cube> map_elems;
 
