@@ -43,12 +43,9 @@ bool ModuleSceneIntro::Start()
 
 	death.size = vec3(1500, 0.05f, 1800);
 	death.SetPos(400, 5, 280);
-	map_elems.add(death);
-
+	
 	anticheat.size = vec3(0.05f, 6, 30);
 	anticheat.SetPos(15, 35, -244);
-
-	map_elems.add(anticheat);
 
 	constraint_axis.radius = 2;
 	constraint_axis.SetPos(0, 33, -50);
