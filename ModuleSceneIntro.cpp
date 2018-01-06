@@ -40,7 +40,8 @@ bool ModuleSceneIntro::Start()
 		LoadMap(temp);
 		temp = temp.next_sibling("plane");
 	}
-		
+	
+	lap_timer.Start();
 	return ret;
 }
 
@@ -61,6 +62,8 @@ update_status ModuleSceneIntro::Update(float dt)
 		map_list_iterator->data.Render();
 		map_list_iterator = map_list_iterator->next;
 	}
+
+	current_time_sec = lap_timer.Read()/1000;
 	return UPDATE_CONTINUE;
 }
 
@@ -81,4 +84,6 @@ void ModuleSceneIntro::LoadMap(pugi::xml_node& map)
 	App->physics->AddBody(plane, 0.0f);
 	map_elems.add(plane);
 }
+
+
 

@@ -78,8 +78,8 @@ bool ModuleWindow::Init()
 update_status ModuleWindow::Update(float dt)
 {
 	char title[80];
-	sprintf_s(title, "-- LAPS: %d/%d -- Lap Time: %.1f -- Last Lap Time: %.1f -- Best Time: %.1f", App->scene_intro->laps_done, App->scene_intro->laps_left, 
-		App->scene_intro->current_time, App->scene_intro->last_lap_time, App->scene_intro->best_lap_time);
+	sprintf_s(title, "-- LAPS: %d/%d -- Lap Time: %d -- Last Lap Time: %.0f -- Best Time: %.1f", App->scene_intro->laps_done, App->scene_intro->laps_left, 
+		App->scene_intro->current_time_sec, App->scene_intro->last_lap_time, App->scene_intro->best_lap_time);
 
 	App->window->SetTitle(title);
 

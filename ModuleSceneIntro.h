@@ -22,7 +22,7 @@ public:
 
 	void OnCollision(PhysVehicle3D* body1, PhysBody3D* body2);
 	void LoadMap(pugi::xml_node& node);
-
+	
 public:
 	
 	PhysBody3D* pb_chassis;
@@ -42,7 +42,7 @@ public:
 	Timer lap_timer;
 	float last_lap_time = 0;
 	float best_lap_time = 0;
-	float current_time = 0;
+	uint current_time_sec = 0;
 	
 	PhysBody3D* sensor;
 
