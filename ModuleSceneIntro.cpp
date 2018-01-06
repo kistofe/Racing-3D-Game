@@ -92,7 +92,11 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1 == death_s)
-		App->player->vehicle->SetTransform(App->player->start_location), App->player->collided_with_anticheating = false;
+	{
+		App->player->vehicle->SetTransform(App->player->start_location);
+		App->player->collided_with_anticheating = false;
+		App->player->vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
+	}
 	
 	if (body1 == anticheat_s)
 		App->player->collided_with_anticheating = true;
