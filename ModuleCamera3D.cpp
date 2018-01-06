@@ -4,7 +4,6 @@
 #include "ModuleCamera3D.h"
 #include "ModulePlayer.h"
 #include "PhysVehicle3D.h"
-#include <math.h>
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -14,8 +13,8 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Y = vec3(0.0f, 1.0f, 0.0f);
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
-	Position = vec3(0.0f, 30.0f, 5.0f);
-	Reference = vec3(0.0f, 30.0f, 5.0f);
+	Position = vec3(0.0f, 0.0f, 5.0f);
+	Reference = vec3(0.0f, 0.0f, 0.0f);
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -45,7 +44,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	vec3 newPos(0,0,0);
-	float speed = 100.0f * dt;
+	float speed = 3.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
@@ -61,7 +60,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	Position += newPos;
 	Reference += newPos;
-	
+
 	// Mouse motion ----------------
 
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
@@ -102,8 +101,7 @@ update_status ModuleCamera3D::Update(float dt)
 	SetCameraToPlayer();
 	// Recalculate matrix -------------
 //	CalculateViewMatrix();
-	
-	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -171,19 +169,18 @@ void ModuleCamera3D::SetCameraToPlayer()
 
 	vec3 camera_pos = player_pos + player_dir * 20;
 	camera_pos.y += 12;
-//	camera_pos.z += 25;
-	
+	//	camera_pos.z += 25;
+
 	Look(camera_pos, player_pos, true);
 }
 
 vec3 ModuleCamera3D::bt_to_vec(btVector3 vector)
 {
 	vec3 new_vector;
-	
+
 	new_vector.x = vector.getX();
 	new_vector.y = vector.getY();
 	new_vector.z = vector.getZ();
-	
+
 	return new_vector;
 }
-

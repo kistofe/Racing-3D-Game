@@ -1,6 +1,5 @@
 #include "Application.h"
 
-
 Application::Application()
 {
 	window = new ModuleWindow(this);

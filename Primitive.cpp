@@ -87,7 +87,6 @@ void Primitive::SetPos(float x, float y, float z)
 	transform.translate(x, y, z);
 }
 
-
 // ------------------------------------------------------------
 void Primitive::SetRotation(float angle, const vec3 &u)
 {

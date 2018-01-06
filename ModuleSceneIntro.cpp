@@ -2,10 +2,7 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
-#include "ModulePlayer.h"
-#include "ModulePhysics3D.h"
 #include "PhysBody3D.h"
-
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -19,7 +16,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	{
 		config = config_file.child("map");
 	}
-	
+
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -33,14 +30,21 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-	
+
 	pugi::xml_node temp = config.child("plane");
 	while (temp)
 	{
 		LoadMap(temp);
 		temp = temp.next_sibling("plane");
 	}
-	
+
+	s.size = vec3(5, 3, 1);
+	s.SetPos(0, 35, -50);
+
+	sensor = App->physics->AddBody(s, 0.0f);
+	sensor->SetAsSensor(true);
+	sensor->collision_listeners.add(this);
+
 	lap_timer.Start();
 	return ret;
 }
@@ -63,16 +67,13 @@ update_status ModuleSceneIntro::Update(float dt)
 		map_list_iterator = map_list_iterator->next;
 	}
 
-	current_time_sec = lap_timer.Read()/1000;
+	current_time_sec = lap_timer.Read() / 1000;
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::OnCollision(PhysVehicle3D* body2, PhysBody3D* body1)
+void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body2 == App->player->vehicle && body1 == sensor)
-	{
-		laps_done++;
-	}
+	LOG("Hit!");
 }
 
 void ModuleSceneIntro::LoadMap(pugi::xml_node& map)
@@ -84,6 +85,3 @@ void ModuleSceneIntro::LoadMap(pugi::xml_node& map)
 	App->physics->AddBody(plane, 0.0f);
 	map_elems.add(plane);
 }
-
-
-

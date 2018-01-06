@@ -66,8 +66,6 @@ bool ModulePhysics3D::Start()
 		world->addRigidBody(body);
 	}
 
-	
-	
 	return true;
 }
 
@@ -107,9 +105,6 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 			}
 		}
 	}
-	
-
-	
 
 	return UPDATE_CONTINUE;
 }
@@ -124,7 +119,6 @@ update_status ModulePhysics3D::Update(float dt)
 	{
 		world->debugDrawWorld();
 
-	
 		// Render vehicles
 		p2List_item<PhysVehicle3D*>* item = vehicles.getFirst();
 		while(item)
@@ -141,7 +135,7 @@ update_status ModulePhysics3D::Update(float dt)
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
 		}
 	}
-	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -217,7 +211,6 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
 
-	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.add(pbody);
 
@@ -245,7 +238,6 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
 
-	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.add(pbody);
 
@@ -272,7 +264,6 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
 
-	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.add(pbody);
 
@@ -287,7 +278,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 	btCollisionShape* colShape = new btBoxShape(btVector3(info.chassis_size.x*0.5f, info.chassis_size.y*0.5f, info.chassis_size.z*0.5f));
 	shapes.add(colShape);
-
+	
 	btTransform trans;
 	trans.setIdentity();
 	trans.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z));
@@ -318,7 +309,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	tuning.m_suspensionStiffness = info.suspensionStiffness;
 
 	btRaycastVehicle* vehicle = new btRaycastVehicle(tuning, body, vehicle_raycaster);
-	
+
 	vehicle->setCoordinateSystem(0, 1, 2);
 
 	for(int i = 0; i < info.num_wheels; ++i)

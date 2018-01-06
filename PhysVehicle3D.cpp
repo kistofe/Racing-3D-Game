@@ -29,8 +29,8 @@ void PhysVehicle3D::Render()
 
 	for(int i = 0; i < vehicle->getNumWheels(); ++i)
 	{
-		wheel.radius = info.wheels[i].radius;
-		wheel.height = info.wheels[i].width;
+		wheel.radius = info.wheels[0].radius;
+		wheel.height = info.wheels[0].width;
 
 		vehicle->updateWheelTransform(i);
 		vehicle->getWheelInfo(i).m_worldTransform.getOpenGLMatrix(&wheel.transform);
@@ -47,7 +47,7 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[12] += offset.getX();
 	chassis.transform.M[13] += offset.getY();
 	chassis.transform.M[14] += offset.getZ();
-
+	chassis.color = Blue;
 
 	chassis.Render();
 }

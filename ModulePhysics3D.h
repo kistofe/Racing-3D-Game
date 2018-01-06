@@ -52,7 +52,6 @@ private:
 	p2List<btDefaultMotionState*> motions;
 	p2List<btTypedConstraint*> constraints;
 	p2List<PhysVehicle3D*> vehicles;
-
 };
 
 class DebugDrawer : public btIDebugDraw
@@ -71,5 +70,4 @@ public:
 	DebugDrawModes mode;
 	Line line;
 	Primitive point;
-
 };

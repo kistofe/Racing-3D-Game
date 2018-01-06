@@ -84,10 +84,10 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
+    <ClInclude Include="PugiXml\src\pugixml.hpp">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="PugiXml\src\pugixml.hpp">
+    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
