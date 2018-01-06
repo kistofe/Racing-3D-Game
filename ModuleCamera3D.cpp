@@ -166,14 +166,14 @@ void ModuleCamera3D::SetCameraToPlayer()
 	btTransform vehicle = App->player->vehicle->vehicle->getChassisWorldTransform();
 	btVector3 btplayer_pos = vehicle.getOrigin();
 	btVector3 btplayer_dir = vehicle.getBasis().getColumn(2);
-	LOG("%f, %f, %f", btplayer_dir.getX(), btplayer_dir.getY(), btplayer_dir.getZ());
 	vec3 player_pos = bt_to_vec(btplayer_pos);
+	vec3 player_dir = bt_to_vec(btplayer_dir);
 
-	vec3 camera_pos = player_pos;
+	vec3 camera_pos = player_pos + player_dir * 20;
 	camera_pos.y += 12;
-	camera_pos.z += 25;
+//	camera_pos.z += 25;
 	
-	Look(camera_pos, player_pos, false);
+	Look(camera_pos, player_pos, true);
 }
 
 vec3 ModuleCamera3D::bt_to_vec(btVector3 vector)
