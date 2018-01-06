@@ -20,6 +20,7 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 	void LoadMap(pugi::xml_node& node);
+	void AddSensors();
 
 public:
 	Cube goal_sensor_shape;

@@ -240,4 +240,19 @@
     <size x="120" y="2" z="30"/>
     <is_red value="false"/>
   </plane>
+
+  <death_sensor>
+    <pos x = "1500" y = "0.05" z= "1800"/>
+    <size x="120" y="2" z="30"/>
+  </death_sensor>
+
+  <anticheat_sensor>
+    <pos x = "15" y = "35" z= "-244"/>
+    <size x="0.05" y="6" z="30"/>
+  </anticheat_sensor>
+
+  <goal_sensor>
+    <pos x = "0" y = "35" z= "15"/>
+    <size x="30" y="20" z="10"/>
+  </goal_sensor>
 </map>

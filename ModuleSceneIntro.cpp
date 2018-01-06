@@ -31,6 +31,8 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
+	App->audio->PlayMusic("Music.ogg");
+	Mix_VolumeMusic(20);
 
 	pugi::xml_node temp = config.child("plane");
 	while (temp)
@@ -39,27 +41,7 @@ bool ModuleSceneIntro::Start()
 		temp = temp.next_sibling("plane");
 	}
 
-	//Death sensor
-	death.size = vec3(1500, 0.05f, 1800);
-	death.SetPos(400, 5, 280);
-	death_s = App->physics->AddBody(death, 0.0f);
-	death_s->SetAsSensor(true);
-	death_s->collision_listeners.add(this);
-
-	//Mid-circuit sensor to prevent cheating
-	anticheat.size = vec3(0.05f, 6, 30);
-	anticheat.SetPos(15, 35, -244);
-	anticheat_s = App->physics->AddBody(anticheat, 0.0f);
-	anticheat_s->SetAsSensor(true);
-	anticheat_s->collision_listeners.add(this);
-
-	//Goal sensor
-	goal_sensor_shape.size = vec3(30, 20, 10);
-	goal_sensor_shape.SetPos(0, 35, 15);
-	goal_sensor = App->physics->AddBody(goal_sensor_shape, 0.0f);
-	goal_sensor->SetAsSensor(true);
-	goal_sensor->collision_listeners.add(this);
-
+	AddSensors();
 	lap_timer.Start();
 	return ret;
 }
@@ -119,4 +101,32 @@ void ModuleSceneIntro::LoadMap(pugi::xml_node& map)
 		plane.color = Red;
 	App->physics->AddBody(plane, 0.0f);
 	map_elems.add(plane);
+}
+
+void ModuleSceneIntro::AddSensors()
+{
+	//Death sensor
+	pugi::xml_node d_sensor = config.child("death_sensor");
+	death.size = vec3(d_sensor.child("size").attribute("x").as_float(), d_sensor.child("size").attribute("y").as_float(), d_sensor.child("size").attribute("z").as_float());
+	death.SetPos(d_sensor.child("pos").attribute("x").as_float(), d_sensor.child("pos").attribute("y").as_float(), d_sensor.child("pos").attribute("z").as_float());
+	death_s = App->physics->AddBody(death, 0.0f);
+	death_s->SetAsSensor(true);
+	death_s->collision_listeners.add(this);
+
+	//Mid-circuit sensor to prevent cheating
+	pugi::xml_node a_sensor = config.child("anticheat_sensor");
+	anticheat.size = vec3(a_sensor.child("size").attribute("x").as_float(), a_sensor.child("size").attribute("y").as_float(), a_sensor.child("size").attribute("z").as_float());
+	anticheat.SetPos(a_sensor.child("pos").attribute("x").as_float(), a_sensor.child("pos").attribute("y").as_float(), a_sensor.child("pos").attribute("z").as_float());
+	anticheat_s = App->physics->AddBody(anticheat, 0.0f);
+	anticheat_s->SetAsSensor(true);
+	anticheat_s->collision_listeners.add(this);
+
+	//Goal sensor
+	pugi::xml_node g_sensor = config.child("goal_sensor");
+	goal_sensor_shape.size = vec3(g_sensor.child("size").attribute("x").as_float(), g_sensor.child("size").attribute("y").as_float(), g_sensor.child("size").attribute("z").as_float());
+	goal_sensor_shape.SetPos(g_sensor.child("pos").attribute("x").as_float(), g_sensor.child("pos").attribute("y").as_float(), g_sensor.child("pos").attribute("z").as_float());
+	goal_sensor = App->physics->AddBody(goal_sensor_shape, 0.0f);
+	goal_sensor->SetAsSensor(true);
+	goal_sensor->collision_listeners.add(this);
+
 }
