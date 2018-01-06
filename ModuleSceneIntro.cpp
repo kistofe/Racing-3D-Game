@@ -31,6 +31,8 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
+	App->audio->PlayMusic("Music.ogg");
+	Mix_VolumeMusic(20);
 
 	pugi::xml_node temp = config.child("plane");
 	while (temp)
@@ -41,25 +43,12 @@ bool ModuleSceneIntro::Start()
 
 	death.size = vec3(1500, 0.05f, 1800);
 	death.SetPos(400, 5, 280);
-
-	death_s = App->physics->AddBody(death, 0.0f);
-	death_s->SetAsSensor(true);
-	death_s->collision_listeners.add(this);
 	map_elems.add(death);
 
 	anticheat.size = vec3(0.05f, 6, 30);
 	anticheat.SetPos(15, 35, -244);
 
 	map_elems.add(anticheat);
-
-	goal_sensor_shape.size = vec3(30, 20, 10);
-	goal_sensor_shape.SetPos(0, 35, 15);
-	
-	
-	goal_sensor = App->physics->AddBody(goal_sensor_shape, 0.0f);
-	goal_sensor->SetAsSensor(true);
-	goal_sensor->collision_listeners.add(this);
-	goal_sensor->name = "Goal";
 
 	constraint_axis.radius = 2;
 	constraint_axis.SetPos(0, 33, -50);
@@ -71,6 +60,7 @@ bool ModuleSceneIntro::Start()
 
 	App->physics->AddConstraintHinge(*constraint_axis_p, *constraint_rot_p, { 0, 0, 0 }, { 0,0,0 }, { 0, 1, 0 }, { 0, 1, 0 }, true);
 
+	AddSensors();
 	lap_timer.Start();
 	return ret;
 }
@@ -105,12 +95,26 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1 == death_s)
-	{
-		App->player->vehicle->SetTransform(App->player->start_location);
-	}
+		App->player->vehicle->SetTransform(App->player->start_location), App->player->collided_with_anticheating = false;
+	
+	if (body1 == anticheat_s)
+		App->player->collided_with_anticheating = true;
 
-	if (body1 == goal_sensor)
-		laps_done++, colliding = true;
+	if (body1 == goal_sensor && App->player->collided_with_anticheating)
+	{
+		last_lap_time = current_time_sec;
+		if (laps_done == 1 || last_lap_time < best_lap_time)
+			best_lap_time = last_lap_time;
+		laps_done++;
+		if (laps_done > total_laps)
+		{
+			laps_done = 1;
+			last_lap_time = 0;
+			best_lap_time = 0;
+		}
+		lap_timer.Start();
+		App->player->collided_with_anticheating = false;
+	}
 }
 
 void ModuleSceneIntro::LoadMap(pugi::xml_node& map)
@@ -127,4 +131,31 @@ void ModuleSceneIntro::UpdateVisualWorld()
 {
 	float matrix[16];
 	constraint_rot_p->GetTransform(&constraint_rot.transform);
+}
+
+void ModuleSceneIntro::AddSensors()
+{
+	//Death sensor
+	pugi::xml_node d_sensor = config.child("death_sensor");
+	death.size = vec3(d_sensor.child("size").attribute("x").as_float(), d_sensor.child("size").attribute("y").as_float(), d_sensor.child("size").attribute("z").as_float());
+	death.SetPos(d_sensor.child("pos").attribute("x").as_float(), d_sensor.child("pos").attribute("y").as_float(), d_sensor.child("pos").attribute("z").as_float());
+	death_s = App->physics->AddBody(death, 0.0f);
+	death_s->SetAsSensor(true);
+	death_s->collision_listeners.add(this);
+
+	//Mid-circuit sensor to prevent cheating
+	pugi::xml_node a_sensor = config.child("anticheat_sensor");
+	anticheat.size = vec3(a_sensor.child("size").attribute("x").as_float(), a_sensor.child("size").attribute("y").as_float(), a_sensor.child("size").attribute("z").as_float());
+	anticheat.SetPos(a_sensor.child("pos").attribute("x").as_float(), a_sensor.child("pos").attribute("y").as_float(), a_sensor.child("pos").attribute("z").as_float());
+	anticheat_s = App->physics->AddBody(anticheat, 0.0f);
+	anticheat_s->SetAsSensor(true);
+	anticheat_s->collision_listeners.add(this);
+
+	//Goal sensor
+	pugi::xml_node g_sensor = config.child("goal_sensor");
+	goal_sensor_shape.size = vec3(g_sensor.child("size").attribute("x").as_float(), g_sensor.child("size").attribute("y").as_float(), g_sensor.child("size").attribute("z").as_float());
+	goal_sensor_shape.SetPos(g_sensor.child("pos").attribute("x").as_float(), g_sensor.child("pos").attribute("y").as_float(), g_sensor.child("pos").attribute("z").as_float());
+	goal_sensor = App->physics->AddBody(goal_sensor_shape, 0.0f);
+	goal_sensor->SetAsSensor(true);
+	goal_sensor->collision_listeners.add(this);
 }

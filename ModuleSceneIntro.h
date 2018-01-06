@@ -21,6 +21,7 @@ public:
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 	void LoadMap(pugi::xml_node& node);
 	void UpdateVisualWorld();
+	void AddSensors();
 
 public:
 	Cube goal_sensor_shape;
@@ -38,13 +39,12 @@ public:
 	Cube constraint_rot;
 	PhysBody3D* constraint_rot_p;
 
-	uint laps_done = 0;
+	uint laps_done = 1;
 	uint total_laps = 3;
 	Timer lap_timer;
-	float last_lap_time = 0;
-	float best_lap_time = 0;
+	uint last_lap_time = 0;
+	uint best_lap_time = 0;
 	uint current_time_sec = 0;
-	bool colliding = false;
 
 	p2List<Cube> map_elems;
 
