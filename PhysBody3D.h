@@ -28,7 +28,6 @@ private:
 
 public:
 	p2List<Module*> collision_listeners;
-	p2SString name;
 };
 
 #endif // __PhysBody3D_H__

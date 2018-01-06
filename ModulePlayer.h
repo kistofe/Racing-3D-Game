@@ -26,4 +26,6 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+
+	bool collided_with_anticheating = false;
 };

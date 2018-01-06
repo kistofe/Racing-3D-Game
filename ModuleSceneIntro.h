@@ -31,13 +31,12 @@ public:
 	Cube anticheat;
 	PhysBody3D* anticheat_s;
 
-	uint laps_done = 0;
+	uint laps_done = 1;
 	uint total_laps = 3;
 	Timer lap_timer;
-	float last_lap_time = 0;
-	float best_lap_time = 0;
+	uint last_lap_time = 0;
+	uint best_lap_time = 0;
 	uint current_time_sec = 0;
-	bool colliding = false;
 
 	p2List<Cube> map_elems;
 

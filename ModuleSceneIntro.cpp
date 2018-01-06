@@ -39,27 +39,26 @@ bool ModuleSceneIntro::Start()
 		temp = temp.next_sibling("plane");
 	}
 
+	//Death sensor
 	death.size = vec3(1500, 0.05f, 1800);
 	death.SetPos(400, 5, 280);
-
 	death_s = App->physics->AddBody(death, 0.0f);
 	death_s->SetAsSensor(true);
 	death_s->collision_listeners.add(this);
-	map_elems.add(death);
 
+	//Mid-circuit sensor to prevent cheating
 	anticheat.size = vec3(0.05f, 6, 30);
 	anticheat.SetPos(15, 35, -244);
+	anticheat_s = App->physics->AddBody(anticheat, 0.0f);
+	anticheat_s->SetAsSensor(true);
+	anticheat_s->collision_listeners.add(this);
 
-	map_elems.add(anticheat);
-
+	//Goal sensor
 	goal_sensor_shape.size = vec3(30, 20, 10);
 	goal_sensor_shape.SetPos(0, 35, 15);
-	
-	
 	goal_sensor = App->physics->AddBody(goal_sensor_shape, 0.0f);
 	goal_sensor->SetAsSensor(true);
 	goal_sensor->collision_listeners.add(this);
-	goal_sensor->name = "Goal";
 
 	lap_timer.Start();
 	return ret;
@@ -90,12 +89,26 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1 == death_s)
-	{
-		App->player->vehicle->SetTransform(App->player->start_location);
-	}
+		App->player->vehicle->SetTransform(App->player->start_location), App->player->collided_with_anticheating = false;
+	
+	if (body1 == anticheat_s)
+		App->player->collided_with_anticheating = true;
 
-	if (body1 == goal_sensor)
-		laps_done++, colliding = true;
+	if (body1 == goal_sensor && App->player->collided_with_anticheating)
+	{
+		last_lap_time = current_time_sec;
+		if (laps_done == 1 || last_lap_time < best_lap_time)
+			best_lap_time = last_lap_time;
+		laps_done++;
+		if (laps_done > total_laps)
+		{
+			laps_done = 1;
+			last_lap_time = 0;
+			best_lap_time = 0;
+		}
+		lap_timer.Start();
+		App->player->collided_with_anticheating = false;
+	}
 }
 
 void ModuleSceneIntro::LoadMap(pugi::xml_node& map)
